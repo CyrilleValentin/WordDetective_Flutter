@@ -30,7 +30,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  faker: ^2.1.0
+  global_bottom_navigation_bar: ^0.0.8
+  onboarding: ^3.1.0
+  flutter_timer_countdown: ^1.0.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
