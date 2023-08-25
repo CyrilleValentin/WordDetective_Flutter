@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:global_bottom_navigation_bar/global_bottom_navigation_bar.dart';
 
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       color: Color(0xFFFFBF66),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
@@ -50,47 +51,48 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     BottomNavigationItem(
 
       activeIcon: const Icon(
-        Icons.games_outlined,
+        Boxicons.bxs_joystick,
         color: Colors.white,
         size: 25,
       ),
       inActiveIcon: const Icon(
-        Icons.games,
+        Boxicons.bx_joystick,
         color: Color(0xFF4A919E),
         size: 30,
       ),
       title: 'Jeu',
-      color:   Color(0xFF264653),
+      color:   const Color(0xFF264653),
+      vSync: this,
+    ),
+    BottomNavigationItem(
+      activeIcon: Image.asset("images/ranking.png",
+        width: 30,
+        height: 30,
+        color: Colors.white,
+      ),
+      inActiveIcon: Image.asset("images/award.png",
+        width: 30,
+        height: 30,
+        color: const Color(0xFF4A919E),
+
+      ),
+      title: 'Classement',
+      color:   const Color(0xFF264653),
       vSync: this,
     ),
     BottomNavigationItem(
       activeIcon: const Icon(
-        Icons.perm_camera_mic,
-        color: Colors.white,
-        size: 25,
-      ),
-      inActiveIcon: const Icon(
-        Icons.perm_contact_calendar,
-        color: Color(0xFF4A919E),
-        size: 30,
-      ),
-      title: 'Classement',
-      color:   Color(0xFF264653),
-      vSync: this,
-    ),
-    BottomNavigationItem(
-      activeIcon: Icon(
         Icons.person,
         color: Colors.white,
         size: 25,
       ),
-      inActiveIcon: Icon(
+      inActiveIcon: const Icon(
         Icons.person_outline,
         color: Color(0xFF4A919E),
         size: 30,
       ),
       title: 'Profil',
-      color:   Color(0xFF264653),
+      color:   const Color(0xFF264653),
       vSync: this,
     ),
 

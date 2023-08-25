@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -257,10 +258,13 @@ class _FirstScreenState extends State<FirstScreen> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Text(
-                            "Vie:$lives",
-                            style: const TextStyle(
-                                fontSize: 20,color: Colors.white, fontWeight: FontWeight.w600),
+                          Row(
+                            children: List.generate(
+                              lives,
+                                  (index) => const Icon(Boxicons.bxs_heart,
+                                color: Colors.red,
+                              ),
+                            ),
                           ),
                           Text(
                             "Score:$score",
@@ -273,11 +277,19 @@ class _FirstScreenState extends State<FirstScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 60,
-                  child: Text(
-                    formatDuration(timeLeft),
-                    style: const TextStyle(
-                        fontSize: 60, fontWeight: FontWeight.bold),
+                  height: 110,
+                  child: CustomCountdownTimer(
+                    duration: Duration(seconds: timeLeft),
+                    criticalTime: const Duration(seconds: 10),
+                    onFinish: () {
+                      if (lives > 1) {
+                        lives -= 1;
+                        newWord();
+                        startTimer();
+                      } else {
+                        endGame();
+                      }
+                    },
                   ),
                 ),
                 Container(
@@ -316,14 +328,14 @@ class _FirstScreenState extends State<FirstScreen> {
           const SizedBox(height: 30),
           TextFormField(
             controller: guessController,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20),
               labelText: 'Mot à deviner ',
               hintText: 'Entrer un Mot',
-              border: const OutlineInputBorder(),
+              border: OutlineInputBorder(),
               filled: true,
               fillColor: Color(0xFFFFBF66),
-              prefixIcon: const Icon(Icons.abc_outlined),
+              prefixIcon: Icon(Icons.abc_outlined),
             ),
             keyboardType: TextInputType.text,
             validator: (value) {
@@ -379,4 +391,68 @@ class CustomToast {
       ),
     );
   }
+}
+class CustomCountdownTimer extends StatefulWidget {
+  final Duration duration;
+  final Duration criticalTime;
+  final Function onFinish;
+
+  CustomCountdownTimer({super.key,
+    required this.duration,
+    required this.criticalTime,
+    required this.onFinish,
+  });
+
+  @override
+  _CustomCountdownTimerState createState() => _CustomCountdownTimerState();
+}
+
+class _CustomCountdownTimerState extends State<CustomCountdownTimer> {
+  late Timer _timer;
+  bool _showCriticalTime = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(milliseconds: 200), _handleTimer);
+  }
+
+  void _handleTimer(Timer timer) {
+    if (widget.duration.inSeconds <= 0) {
+      widget.onFinish();
+    } else {
+      setState(() {
+        if (widget.duration <= widget.criticalTime) {
+          _showCriticalTime = !_showCriticalTime;
+        }
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final TextStyle textStyle = TextStyle(
+      fontSize: 90,
+      fontWeight: FontWeight.bold,
+      color: _showCriticalTime ? Colors.white : Colors.red,
+      fontFamily: "YourCustomFont",
+    );
+
+    return Text(
+      formatDuration(widget.duration.inSeconds),
+      style: textStyle,
+    );
+  }
+}
+
+String formatDuration(int seconds) {
+  final Duration duration = Duration(seconds: seconds);
+  final String formattedDuration = "${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
+  return formattedDuration;
 }

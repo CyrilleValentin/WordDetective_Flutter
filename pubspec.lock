@@ -62,6 +62,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_boxicons:
+    dependency: "direct main"
+    description:
+      name: flutter_boxicons
+      sha256: "2323b3148ca0b22965c64967e87d4236c1d83b00547f661303a8c81c9dff7ac7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
