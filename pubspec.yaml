@@ -32,8 +32,7 @@ dependencies:
     sdk: flutter
   global_bottom_navigation_bar: ^0.0.8
   onboarding: ^3.1.0
-  flutter_timer_countdown: ^1.0.5
-
+  intl: ^0.18.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -61,8 +60,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
