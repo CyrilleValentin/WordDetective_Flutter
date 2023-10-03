@@ -292,18 +292,16 @@ class _FirstScreenState extends State<FirstScreen> {
                     },
                   ),
                 ),
-                Container(
-                  child: SizedBox(
-                    width: 350,
-                    child: Card(
-                      color: const Color(0xFFD46F4D),
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: buildForm(),
-                      ),
+                SizedBox(
+                  width: 350,
+                  child: Card(
+                    color: const Color(0xFFD46F4D),
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: buildForm(),
                     ),
                   ),
                 )
@@ -397,7 +395,7 @@ class CustomCountdownTimer extends StatefulWidget {
   final Duration criticalTime;
   final Function onFinish;
 
-  CustomCountdownTimer({super.key,
+  const CustomCountdownTimer({super.key,
     required this.duration,
     required this.criticalTime,
     required this.onFinish,

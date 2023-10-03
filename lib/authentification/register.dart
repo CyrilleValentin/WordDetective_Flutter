@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:word_detective/Jeu.dart';
+import 'package:word_detective/navigation/bottomNavigation.dart';
+import 'package:word_detective/pages/constants/constants.dart';
+import 'package:word_detective/pages/constants/strings.dart';
+import 'package:word_detective/routes/route.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
@@ -25,6 +28,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String _email = '';
   String _name = '';
   String _password = '';
+  TextEditingController name = TextEditingController(text: "");
+  TextEditingController email = TextEditingController(text: "");
+  TextEditingController password = TextEditingController(text: "");
+  TextEditingController confPassword = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +81,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           TextFormField(
+            controller: email,
             decoration: const InputDecoration(
               filled: true,
               fillColor: Color(0xFFFFBF66),
@@ -83,11 +91,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Vous devez entrer un email';
+              if (value == "") {
+                return emailHint;
               }
-              if (!value.contains('@')) {
-                return 'Entrer un email valide';
+              if (!emailRegex.hasMatch(value!)) {
+                return emailVerifHint;
               }
               return null;
             },
@@ -95,9 +103,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               _email = value!;
             },
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           TextFormField(
-            decoration: InputDecoration(
+            controller: name,
+            decoration: const InputDecoration(
               filled: true,
               fillColor: Color(0xFFFFBF66),
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
@@ -105,8 +114,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               border: OutlineInputBorder(),
             ),
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Vous devez entrer un nom';
+              if (value == "") {
+                return nameHint;
               }
               return null;
             },
@@ -114,9 +123,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               _name = value!;
             },
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           TextFormField(
-            decoration: InputDecoration(
+            controller: password,
+            keyboardType: TextInputType.visiblePassword,
+            decoration: const InputDecoration(
               filled: true,
               fillColor: Color(0xFFFFBF66),
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
@@ -125,8 +136,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             obscureText: true,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Vous devez entrer un mot de passe';
+              if (value == "") {
+                return passwordHint;
+              }
+              if (!passwordRegex.hasMatch(value!)) {
+                return password8CaractHint;
               }
               return null;
             },
@@ -134,16 +148,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               _password = value!;
             },
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 16),
+          TextFormField(
+            controller: confPassword,
+            decoration: const InputDecoration(
+              filled: true,
+              fillColor: Color(0xFFFFBF66),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              labelText: 'Confirmer Mot de passe',
+              border: OutlineInputBorder(),
+            ),
+            obscureText: true,
+            validator: (value) {
+              if (value == "") {
+                return confpasswordHint;
+              }
+              if (!passwordRegex.hasMatch(value!)) {
+                return confVerifpasswordHint;
+              }
+              return null;
+            },
+            onSaved: (value) {
+              _password = value!;
+            },
+          ),
+          const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {
               _submitForm();
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (BuildContext context) {
-                return MyApp();
-              }));
+              navigator(context, const MyApp());
             },
-            child: Text("S'inscrire"),
+            child: const Text("S'inscrire"),
           ),
         ],
       ),

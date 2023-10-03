@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'Jeu.dart';import 'register.dart';
+import 'package:word_detective/routes/route.dart';
+import 'authentification/register.dart';
 
 import 'package:onboarding/onboarding.dart';
 void main() {
-  runApp(WordDetective());
+  runApp(const WordDetective());
 }
 
 class WordDetective extends StatelessWidget {
@@ -198,9 +199,7 @@ class _AccueilState extends State<Accueil> {
       child: InkWell(
         borderRadius: defaultProceedButtonBorderRadius,
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
-            return Register();
-          }));
+          navigator(context, const Register());
         },
         child: const Padding(
           padding: defaultProceedButtonPadding,

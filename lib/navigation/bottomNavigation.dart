@@ -3,9 +3,9 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:global_bottom_navigation_bar/global_bottom_navigation_bar.dart';
 
 
-import 'main/first_screen.dart';
-import 'main/second_screen.dart';
-import 'main/third_screen.dart';
+import '../pages/game.dart';
+import '../pages/classement.dart';
+import '../pages/compte.dart';
 
 
 
@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
   final String? title;
 
   @override
+
   _MyHomePageState createState() => _MyHomePageState();
 }
 
