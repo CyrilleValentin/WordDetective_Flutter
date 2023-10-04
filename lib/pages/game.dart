@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:word_detective/pages/choix.dart';
+import 'package:word_detective/services/preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +40,17 @@ class _FirstScreenState extends State<FirstScreen> {
   int timeLeft = 0;
   TextEditingController guessController = TextEditingController();
   Timer? timer;
-  List<String> words = [
+List<String> normal = [
+    "moto",
+    "canard",
+    "table",];
+
+   List<String> difficile = [
+    "anticonstitutionelle",
+    "ravitaillement",
+    "allegrement",];
+
+  List<String> facile = [
     "chat",
     "pain",
     "vent",
@@ -130,7 +142,16 @@ class _FirstScreenState extends State<FirstScreen> {
 
   void newWord() {
     setState(() {
-      currentWord = words[Random().nextInt(words.length)];
+      if (Preferences.pref.getNiveau==DifficultyLevel.facile.name){
+      currentWord = facile[Random().nextInt(facile.length)];
+      }
+    else if (Preferences.pref.getNiveau==DifficultyLevel.normal.name){
+      currentWord = facile[Random().nextInt(normal.length)];
+      }
+      else if (Preferences.pref.getNiveau==DifficultyLevel.difficile.name){
+      currentWord = facile[Random().nextInt(difficile.length)];
+
+      }
       List<String> shuffledLetters = currentWord.split('')..shuffle();
       indice = shuffledLetters.join('-');
     });
@@ -250,9 +271,9 @@ class _FirstScreenState extends State<FirstScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "Niveau",
-                            style: TextStyle(
+                           Text(
+                            Preferences.pref.getNiveau??"",
+                            style: const TextStyle(
                               fontSize: 20,
                               color: Colors.white,
                               fontWeight: FontWeight.w600,

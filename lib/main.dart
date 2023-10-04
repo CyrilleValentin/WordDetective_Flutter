@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:word_detective/routes/route.dart';
+import 'package:word_detective/services/preferences.dart';
 import 'authentification/register.dart';
 
 import 'package:onboarding/onboarding.dart';
-void main() {
+void main()async {
+  await Preferences.init();
   runApp(const WordDetective());
 }
 
