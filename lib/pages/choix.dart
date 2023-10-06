@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:word_detective/pages/game.dart';
+import 'package:word_detective/navigation/bottomNavigation.dart';
 import 'package:word_detective/routes/route.dart';
 import 'package:word_detective/services/preferences.dart';
 enum DifficultyLevel{
@@ -46,10 +46,11 @@ class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
               },
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: ()async {
+                await
                 Preferences.pref.niveau(selectedLevel.name);
                 Navigator.pop(context, selectedLevel);
-                navigator(context, const MyApp());
+                navigator(context, const BottomNavBar());
               },
               child: const Text('Commencer le jeu'),
             ),
@@ -59,4 +60,3 @@ class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
     );
   }
 }
-

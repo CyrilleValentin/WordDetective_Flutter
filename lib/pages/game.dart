@@ -6,9 +6,9 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:word_detective/pages/choix.dart';
 import 'package:word_detective/services/preferences.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+// void main() {
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Word Detective',
       home: FirstScreen(),
     );
@@ -40,15 +41,17 @@ class _FirstScreenState extends State<FirstScreen> {
   int timeLeft = 0;
   TextEditingController guessController = TextEditingController();
   Timer? timer;
-List<String> normal = [
+  List<String> normal = [
     "moto",
     "canard",
-    "table",];
+    "table",
+  ];
 
-   List<String> difficile = [
+  List<String> difficile = [
     "anticonstitutionelle",
     "ravitaillement",
-    "allegrement",];
+    "allegrement",
+  ];
 
   List<String> facile = [
     "chat",
@@ -142,15 +145,12 @@ List<String> normal = [
 
   void newWord() {
     setState(() {
-      if (Preferences.pref.getNiveau==DifficultyLevel.facile.name){
-      currentWord = facile[Random().nextInt(facile.length)];
-      }
-    else if (Preferences.pref.getNiveau==DifficultyLevel.normal.name){
-      currentWord = facile[Random().nextInt(normal.length)];
-      }
-      else if (Preferences.pref.getNiveau==DifficultyLevel.difficile.name){
-      currentWord = facile[Random().nextInt(difficile.length)];
-
+      if (Preferences.pref.getNiveau == DifficultyLevel.facile.name) {
+        currentWord = facile[Random().nextInt(facile.length)];
+      } else if (Preferences.pref.getNiveau == DifficultyLevel.normal.name) {
+        currentWord = normal[Random().nextInt(normal.length)];
+      } else if (Preferences.pref.getNiveau == DifficultyLevel.difficile.name) {
+        currentWord = difficile[Random().nextInt(difficile.length)];
       }
       List<String> shuffledLetters = currentWord.split('')..shuffle();
       indice = shuffledLetters.join('-');
@@ -271,8 +271,8 @@ List<String> normal = [
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                           Text(
-                            Preferences.pref.getNiveau??"",
+                          Text(
+                            Preferences.pref.getNiveau ?? "",
                             style: const TextStyle(
                               fontSize: 20,
                               color: Colors.white,
@@ -282,7 +282,8 @@ List<String> normal = [
                           Row(
                             children: List.generate(
                               lives,
-                                  (index) => const Icon(Boxicons.bxs_heart,
+                              (index) => const Icon(
+                                Boxicons.bxs_heart,
                                 color: Colors.red,
                               ),
                             ),
@@ -290,7 +291,9 @@ List<String> normal = [
                           Text(
                             "Score:$score",
                             style: const TextStyle(
-                                fontSize: 20,color: Colors.white, fontWeight: FontWeight.w600),
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -411,12 +414,14 @@ class CustomToast {
     );
   }
 }
+
 class CustomCountdownTimer extends StatefulWidget {
   final Duration duration;
   final Duration criticalTime;
   final Function onFinish;
 
-  const CustomCountdownTimer({super.key,
+  const CustomCountdownTimer({
+    super.key,
     required this.duration,
     required this.criticalTime,
     required this.onFinish,
@@ -472,6 +477,7 @@ class _CustomCountdownTimerState extends State<CustomCountdownTimer> {
 
 String formatDuration(int seconds) {
   final Duration duration = Duration(seconds: seconds);
-  final String formattedDuration = "${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
+  final String formattedDuration =
+      "${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
   return formattedDuration;
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:word_detective/navigation/bottomNavigation.dart';
 import 'package:word_detective/pages/choix.dart';
 import 'package:word_detective/pages/constants/constants.dart';
 import 'package:word_detective/pages/constants/strings.dart';
@@ -177,7 +176,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ElevatedButton(
             onPressed: () {
               _submitForm();
-              navigator(context,  DifficultySelectionScreen());
+              navigator(context,   DifficultySelectionScreen());
             },
             child: const Text("S'inscrire"),
           ),

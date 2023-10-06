@@ -5,6 +5,7 @@ import 'authentification/register.dart';
 
 import 'package:onboarding/onboarding.dart';
 void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Preferences.init();
   runApp(const WordDetective());
 }
