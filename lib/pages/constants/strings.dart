@@ -5,3 +5,5 @@ const String passwordHint = "Veuillez saisir votre mot de passe";
 const String password8CaractHint = 'Le mot de passe doit contenir au moins 8 caractères';
 const String confpasswordHint = "Veuillez confirmer votre mot de passe";
 const String confVerifpasswordHint = "Les mots de passe ne correspondent pas";
+const String wrongGuess =  "Désolé ce n'était pas le bon mot!";
+const String goodGuess =  "Bravo vous avez deviné le mot!";

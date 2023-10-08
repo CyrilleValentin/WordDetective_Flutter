@@ -39,9 +39,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       body: SafeArea(
         child: Container(
           height: double.infinity,
-          color: const Color(0xFFFFBF66),
+          color: Colors.white,
           child: Center(
-            child: Container(
+            child: SizedBox(
               width: 350,
               height: 450,
               child: SingleChildScrollView(

@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:word_detective/pages/choix.dart';
+import 'package:word_detective/pages/constants/strings.dart';
 import 'package:word_detective/services/preferences.dart';
 
-// void main() {
-//   runApp(const MyApp());
-// }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -191,7 +190,7 @@ class _FirstScreenState extends State<FirstScreen> {
           score += 3;
         });
       }
-      CustomToast.show(context, "Bravo vous avez deviné le mot!");
+      CustomToast.show(context, goodGuess);
     } else {
       timer?.cancel();
       if (lives > 1) {
@@ -201,7 +200,7 @@ class _FirstScreenState extends State<FirstScreen> {
         });
         newWord();
         startTimer();
-        CustomToast.show(context, "Désolé ce n'était pas le bon mot!");
+        CustomToast.show(context,wrongGuess);
       } else {
         endGame();
       }
@@ -256,7 +255,7 @@ class _FirstScreenState extends State<FirstScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: const Color(0xFFFFBF66),
+          color: Colors.white,
           height: double.infinity,
           child: SingleChildScrollView(
             child: Column(
@@ -281,7 +280,7 @@ class _FirstScreenState extends State<FirstScreen> {
                           ),
                           Row(
                             children: List.generate(
-                              lives,
+                              lives, 
                               (index) => const Icon(
                                 Boxicons.bxs_heart,
                                 color: Colors.red,
@@ -345,18 +344,20 @@ class _FirstScreenState extends State<FirstScreen> {
         children: <Widget>[
           Text(
             indice,
-            style: const TextStyle(fontSize: 50, fontWeight: FontWeight.w300),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
           ),
           const SizedBox(height: 30),
           TextFormField(
             controller: guessController,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
-              labelText: 'Mot à deviner ',
               hintText: 'Entrer un Mot',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+              
               filled: true,
-              fillColor: Color(0xFFFFBF66),
+              fillColor: Color.fromARGB(255, 240, 233, 224),
               prefixIcon: Icon(Icons.abc_outlined),
             ),
             keyboardType: TextInputType.text,
@@ -464,7 +465,7 @@ class _CustomCountdownTimerState extends State<CustomCountdownTimer> {
     final TextStyle textStyle = TextStyle(
       fontSize: 90,
       fontWeight: FontWeight.bold,
-      color: _showCriticalTime ? Colors.white : Colors.red,
+      color: _showCriticalTime ? const Color(0xFF4A919E) : Colors.red,
       fontFamily: "YourCustomFont",
     );
 

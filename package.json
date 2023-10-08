@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "har-validator": "^5.1.5",
+    "uuid": "^9.0.1"
+  }
+}
