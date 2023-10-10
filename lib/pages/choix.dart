@@ -3,7 +3,8 @@ import 'package:word_detective/navigation/bottomNavigation.dart';
 import 'package:word_detective/routes/route.dart';
 import 'package:word_detective/services/preferences.dart';
 enum DifficultyLevel{
-  facile,normal,difficile
+  // ignore: constant_identifier_names
+  Facile,Normal,Difficile
 }
 
 class DifficultySelectionScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class DifficultySelectionScreen extends StatefulWidget {
 }
 
 class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
-  DifficultyLevel selectedLevel = DifficultyLevel.facile;
+  DifficultyLevel selectedLevel = DifficultyLevel.Facile;
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +28,15 @@ class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
               value: selectedLevel,
               items: const [
                 DropdownMenuItem<DifficultyLevel>(
-                  value: DifficultyLevel.facile,
+                  value: DifficultyLevel.Facile,
                   child: Text('Facile'),
                 ),
                 DropdownMenuItem<DifficultyLevel>(
-                  value: DifficultyLevel.normal,
+                  value: DifficultyLevel.Normal,
                   child: Text('Normal'),
                 ),
                 DropdownMenuItem<DifficultyLevel>(
-                  value: DifficultyLevel.difficile,
+                  value: DifficultyLevel.Difficile,
                   child: Text('Difficile'),
                 ),
               ],

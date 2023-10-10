@@ -144,11 +144,11 @@ class _FirstScreenState extends State<FirstScreen> {
 
   void newWord() {
     setState(() {
-      if (Preferences.pref.getNiveau == DifficultyLevel.facile.name) {
+      if (Preferences.pref.getNiveau == DifficultyLevel.Facile.name) {
         currentWord = facile[Random().nextInt(facile.length)];
-      } else if (Preferences.pref.getNiveau == DifficultyLevel.normal.name) {
+      } else if (Preferences.pref.getNiveau == DifficultyLevel.Normal.name) {
         currentWord = normal[Random().nextInt(normal.length)];
-      } else if (Preferences.pref.getNiveau == DifficultyLevel.difficile.name) {
+      } else if (Preferences.pref.getNiveau == DifficultyLevel.Difficile.name) {
         currentWord = difficile[Random().nextInt(difficile.length)];
       }
       List<String> shuffledLetters = currentWord.split('')..shuffle();

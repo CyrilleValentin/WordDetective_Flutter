@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:word_detective/pages/choix.dart';
 import 'package:word_detective/pages/constants/constants.dart';
 import 'package:word_detective/pages/constants/strings.dart';
+import 'package:word_detective/pages/game.dart';
 import 'package:word_detective/routes/route.dart';
+import 'package:word_detective/services/requete.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
@@ -28,6 +32,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String _email = '';
   String _name = '';
   String _password = '';
+  String _confpassword = '';
   TextEditingController name = TextEditingController(text: "");
   TextEditingController email = TextEditingController(text: "");
   TextEditingController password = TextEditingController(text: "");
@@ -81,6 +86,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           TextFormField(
+            controller: name,
+            decoration: const InputDecoration(
+              filled: true,
+              fillColor: Color(0xFFFFBF66),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              labelText: "Nom de l'utilisateur",
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == "") {
+                return nameHint;
+              }
+              return null;
+            },
+            onSaved: (value) {
+              _name = value!;
+            },
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
             controller: email,
             decoration: const InputDecoration(
               filled: true,
@@ -101,26 +126,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             },
             onSaved: (value) {
               _email = value!;
-            },
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: name,
-            decoration: const InputDecoration(
-              filled: true,
-              fillColor: Color(0xFFFFBF66),
-              contentPadding: EdgeInsets.symmetric(horizontal: 20),
-              labelText: "Nom de l'utilisateur",
-              border: OutlineInputBorder(),
-            ),
-            validator: (value) {
-              if (value == "") {
-                return nameHint;
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _name = value!;
             },
           ),
           const SizedBox(height: 16),
@@ -169,14 +174,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               return null;
             },
             onSaved: (value) {
-              _password = value!;
+              _confpassword = value!;
             },
           ),
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {
               _submitForm();
-              navigator(context,   DifficultySelectionScreen());
             },
             child: const Text("S'inscrire"),
           ),
@@ -185,12 +189,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print('Email: $_email');
-      print('Name: $_name');
-      print('Password: $_password');
+      String isRegister =
+          await fetchData(_name, _email, _password, _confpassword);
+      if (isRegister == 'true') {
+        CustomToast.show(context, "Inscription Réussie");
+        navigator(context, DifficultySelectionScreen());
+      } else if (isRegister == 'false') {
+        CustomToast.show(context, "Echec de l'inscription");
+      }
+      else{
+        CustomToast.show(context, "Adresse email déjà utilisée");
+
+      }
     }
   }
 }
