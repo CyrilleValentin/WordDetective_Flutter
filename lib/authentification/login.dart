@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:word_detective/authentification/login.dart';
+import 'package:word_detective/authentification/register.dart';
 import 'package:word_detective/pages/choix.dart';
 import 'package:word_detective/pages/constants/constants.dart';
 import 'package:word_detective/pages/constants/strings.dart';
@@ -9,35 +9,31 @@ import 'package:word_detective/pages/game.dart';
 import 'package:word_detective/routes/route.dart';
 import 'package:word_detective/services/requete.dart';
 
-class Register extends StatelessWidget {
-  const Register({super.key});
+class Login extends StatelessWidget {
+  const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RegistrationScreen(),
+      home: LoginScreen(),
     );
   }
 }
 
-class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email = '';
-  String _name = '';
   String _password = '';
-  String _confpassword = '';
-  TextEditingController name = TextEditingController(text: "");
   TextEditingController email = TextEditingController(text: "");
   TextEditingController password = TextEditingController(text: "");
-  TextEditingController confPassword = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +50,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Column(
                   children: [
                     const Text(
-                      "Inscription",
+                      "Connexion",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 50,
@@ -86,26 +82,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          TextFormField(
-            controller: name,
-            decoration: const InputDecoration(
-              filled: true,
-              fillColor: Color(0xFFFFBF66),
-              contentPadding: EdgeInsets.symmetric(horizontal: 20),
-              labelText: "Nom de l'utilisateur",
-              border: OutlineInputBorder(),
-            ),
-            validator: (value) {
-              if (value == "") {
-                return nameHint;
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _name = value!;
-            },
-          ),
-          const SizedBox(height: 16),
           TextFormField(
             controller: email,
             decoration: const InputDecoration(
@@ -154,50 +130,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               _password = value!;
             },
           ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: confPassword,
-            decoration: const InputDecoration(
-              filled: true,
-              fillColor: Color(0xFFFFBF66),
-              contentPadding: EdgeInsets.symmetric(horizontal: 20),
-              labelText: 'Confirmer Mot de passe',
-              border: OutlineInputBorder(),
-            ),
-            obscureText: true,
-            validator: (value) {
-              if (value == "") {
-                return confpasswordHint;
-              }
-              if (!passwordRegex.hasMatch(value!)) {
-                return confVerifpasswordHint;
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _confpassword = value!;
-            },
-          ),
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {
               _submitForm();
             },
-            child: const Text("S'inscrire"),
+            child: const Text("Se connecter"),
           ),
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(loginStr,
+              const Text(
+                registerStr,
                 style: TextStyle(fontSize: 12),
               ),
               GestureDetector(
                 onTap: () {
-                  navigator(context, const Login());
+                  navigator(context, const Register());
                 },
                 child: const Text(
-                  loginBtn,
+                  registerBtn,
                   style: TextStyle(fontSize: 13, color: Colors.blue),
                 ),
               )
@@ -211,15 +164,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      String isRegister =
-          await apiRegister(_name, _email, _password, _confpassword);
-      if (isRegister == 'true') {
-        CustomToast.show(context, "Inscription Réussie");
+      String isLogin = await apiLogin(_email, _password);
+      if (isLogin == 'true') {
+        CustomToast.show(context, "Connexion Réussie");
         navigator(context, DifficultySelectionScreen());
-      } else if (isRegister == 'false') {
-        CustomToast.show(context, "Echec de l'inscription");
+      } else if (isLogin == 'false') {
+        CustomToast.show(context, "Echec de Connexion");
       } else {
-        CustomToast.show(context, "Adresse email déjà utilisée");
+        CustomToast.show(context, "Email ou mot de passe invalide");
       }
     }
   }
