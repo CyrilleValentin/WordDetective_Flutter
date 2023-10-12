@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:word_detective/pages/choix.dart';
 import 'package:word_detective/routes/route.dart';
 import 'package:word_detective/services/preferences.dart';
 import 'authentification/register.dart';
 
 import 'package:onboarding/onboarding.dart';
-void main()async {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Preferences.init();
-  runApp(const WordDetective());
+  runApp( WordDetective());
 }
 
 class WordDetective extends StatelessWidget {
-  const WordDetective({super.key});
-
+   WordDetective({super.key});
+final pref=Preferences.pref;
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: Accueil());
+    return  MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home:pref.getLogin!?DifficultySelectionScreen():const Accueil(),
+    );
   }
 }
-
-
+ 
 
 class Accueil extends StatefulWidget {
   const Accueil({Key? key}) : super(key: key);
@@ -51,8 +54,7 @@ class _AccueilState extends State<Accueil> {
                   horizontal: 45.0,
                   vertical: 90.0,
                 ),
-                child: Image.asset('images/word.png',
-                    color: pageImageColor),
+                child: Image.asset('images/word.png', color: pageImageColor),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
@@ -114,7 +116,6 @@ class _AccueilState extends State<Accueil> {
         ),
       ),
     ),
-
     PageModel(
       widget: DecoratedBox(
         decoration: BoxDecoration(
@@ -133,8 +134,7 @@ class _AccueilState extends State<Accueil> {
                   horizontal: 45.0,
                   vertical: 90.0,
                 ),
-                child: Image.asset('images/welcome.png',
-                    color: pageImageColor),
+                child: Image.asset('images/welcome.png', color: pageImageColor),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0),

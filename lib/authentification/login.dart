@@ -1,12 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:word_detective/authentification/register.dart';
 import 'package:word_detective/pages/choix.dart';
 import 'package:word_detective/pages/constants/constants.dart';
 import 'package:word_detective/pages/constants/strings.dart';
 import 'package:word_detective/pages/game.dart';
 import 'package:word_detective/routes/route.dart';
+import 'package:word_detective/services/preferences.dart';
 import 'package:word_detective/services/requete.dart';
 
 class Login extends StatelessWidget {
@@ -34,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password = '';
   TextEditingController email = TextEditingController(text: "");
   TextEditingController password = TextEditingController(text: "");
-
+final pref=Preferences.pref;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,6 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
       String isLogin = await apiLogin(_email, _password);
       if (isLogin == 'true') {
         CustomToast.show(context, "Connexion Réussie");
+        pref.login();
         navigator(context, DifficultySelectionScreen());
       } else if (isLogin == 'false') {
         CustomToast.show(context, "Echec de Connexion");
@@ -175,4 +178,9 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
+   void loginSuccessful() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('isLoggedIn', true);
+  // Navigue vers la page d'accueil
+}
 }

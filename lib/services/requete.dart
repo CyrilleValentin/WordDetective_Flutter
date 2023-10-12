@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:word_detective/pages/constants/strings.dart';
 
 Future<String> apiRegister(
     String name, String email, String password, String confpassword) async {
   final response = await http
-      .post(Uri.parse('http://192.168.137.2:8000/api/auth/register'), body: {
+      .post(Uri.parse('$ip/api/auth/register'), body: {
     "name": name,
     "email": email,
     "password": password,
@@ -32,7 +33,7 @@ Future<String> apiRegister(
 
 Future<String> apiLogin(String email, String password) async {
   final response = await http
-      .post(Uri.parse('http://192.168.137.2:8000/api/auth/login'), body: {
+      .post(Uri.parse('$ip/api/auth/login'), body: {
     "email": email,
     "password": password,
   });

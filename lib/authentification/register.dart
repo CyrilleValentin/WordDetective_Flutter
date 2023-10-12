@@ -7,6 +7,7 @@ import 'package:word_detective/pages/constants/constants.dart';
 import 'package:word_detective/pages/constants/strings.dart';
 import 'package:word_detective/pages/game.dart';
 import 'package:word_detective/routes/route.dart';
+import 'package:word_detective/services/preferences.dart';
 import 'package:word_detective/services/requete.dart';
 
 class Register extends StatelessWidget {
@@ -30,6 +31,7 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final pref=Preferences.pref;
   String _email = '';
   String _name = '';
   String _password = '';
@@ -215,6 +217,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           await apiRegister(_name, _email, _password, _confpassword);
       if (isRegister == 'true') {
         CustomToast.show(context, "Inscription Réussie");
+        pref.login();
         navigator(context, DifficultySelectionScreen());
       } else if (isRegister == 'false') {
         CustomToast.show(context, "Echec de l'inscription");
@@ -223,4 +226,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       }
     }
   }
+ 
+
 }

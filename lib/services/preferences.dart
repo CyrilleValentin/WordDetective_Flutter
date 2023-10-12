@@ -11,11 +11,19 @@ class Preferences{
     instance.clear();
   }
 
+ 
   Future<void>niveau (String niveau)async{
     await instance.setString("niveau", niveau);
   }
 
   String ? get getNiveau{
     return instance.getString("niveau");
+  }
+   Future<void>login ()async{
+    await instance.setBool("login", true);
+  }
+
+  bool ? get getLogin{
+    return instance.getBool("login")??false;
   }
 }

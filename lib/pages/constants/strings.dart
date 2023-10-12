@@ -11,3 +11,5 @@ const String loginStr =  "Vous avez déjà un compte?";
 const String loginBtn =  "Connectez-vous";
 const String registerStr =  "Vous n'avez pas de compte?";
 const String registerBtn =  "Inscrivez vous";
+//adresse ip
+const String ip="http://192.168.137.7:8000";
