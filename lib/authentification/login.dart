@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:word_detective/authentification/register.dart';
 import 'package:word_detective/pages/choix.dart';
 import 'package:word_detective/pages/constants/constants.dart';
@@ -178,9 +177,5 @@ final pref=Preferences.pref;
       }
     }
   }
-   void loginSuccessful() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setBool('isLoggedIn', true);
-  // Navigue vers la page d'accueil
-}
+ 
 }

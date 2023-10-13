@@ -78,7 +78,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: <Widget>[
         const FirstScreen(),
         const SecondScreen(),
-        Compte()
+        const Compte()
       ][currentPageIndex],
     );
   }

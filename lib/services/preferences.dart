@@ -15,15 +15,25 @@ class Preferences{
   Future<void>niveau (String niveau)async{
     await instance.setString("niveau", niveau);
   }
-
   String ? get getNiveau{
     return instance.getString("niveau");
   }
+  
+
+
    Future<void>login ()async{
     await instance.setBool("login", true);
   }
-
   bool ? get getLogin{
     return instance.getBool("login")??false;
+  }
+
+
+
+   Future<void>token (String token)async{
+    await instance.setString("token", token);
+  }
+  String?  get getToken{
+    return instance.getString("token");
   }
 }
