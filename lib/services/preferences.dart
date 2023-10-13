@@ -1,3 +1,4 @@
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences{
@@ -35,5 +36,26 @@ class Preferences{
   }
   String?  get getToken{
     return instance.getString("token");
+  }
+
+   Future<void>name (String name)async{
+    await instance.setString("name", name);
+  }
+  String?  get getName{
+    return instance.getString("name");
+  }
+
+  Future<void>email (String email)async{
+    await instance.setString("email", email);
+  }
+  String?  get getEmail{
+    return instance.getString("email");
+  }
+
+  Future<void>score (int score)async{
+    await instance.setInt("score", score);
+  }
+  int?  get getScore{
+    return instance.getInt("score");
   }
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:word_detective/authentification/login.dart';
@@ -15,6 +15,34 @@ class Compte extends StatefulWidget {
 
 class _CompteState extends State<Compte> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+ String? userEmail = pref.getEmail; 
+  String? userName = pref.getName; 
+  int? userScore = pref.getScore; 
+   @override
+  void initState() {
+    super.initState();
+    _fetchUserProfile();
+  }
+
+  void _fetchUserProfile() async {
+   try {
+    final token = pref.getToken; 
+
+    if (token != null) {
+      final success = await apiProfile(token);
+
+      if (success) {
+        print('Profil récupéré avec succès');
+      } else {
+        print('Échec de la récupération du profil');
+      }
+    } else {
+      print('Token introuvable, veuillez vous connecter');
+    }
+  } catch (e) {
+    print('Une erreur s\'est produite : $e');
+  }
+  } 
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +111,8 @@ class _CompteState extends State<Compte> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           TextFormField(
+            initialValue: userName,
+            readOnly: true,
             decoration: const InputDecoration(
               filled: true,
               fillColor: Color(0xFFFFBF66),
@@ -94,6 +124,8 @@ class _CompteState extends State<Compte> {
           ),
           const SizedBox(height: 16),
           TextFormField(
+            readOnly: true,
+            initialValue: userEmail,
             decoration: const InputDecoration(
               filled: true,
               fillColor: Color(0xFFFFBF66),
@@ -105,7 +137,8 @@ class _CompteState extends State<Compte> {
           ),
           const SizedBox(height: 16),
           TextFormField(
-            keyboardType: TextInputType.visiblePassword,
+            readOnly: true,
+            initialValue: userScore.toString(),
             decoration: const InputDecoration(
               filled: true,
               fillColor: Color(0xFFFFBF66),
@@ -113,7 +146,7 @@ class _CompteState extends State<Compte> {
               labelText: 'Score',
               border: OutlineInputBorder(),
             ),
-            obscureText: true,
+            
           ),
           const SizedBox(height: 24),
           ElevatedButton(

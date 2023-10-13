@@ -1,7 +1,9 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:word_detective/pages/classement.dart';
 import 'package:word_detective/pages/compte.dart';
+import 'package:word_detective/services/preferences.dart';
 import '../pages/game.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -13,9 +15,12 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int currentPageIndex = 0;
+   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+   final pref= Preferences.pref;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: NavigationBar(
@@ -82,4 +87,5 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ][currentPageIndex],
     );
   }
+  
 }
