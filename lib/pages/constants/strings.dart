@@ -12,4 +12,4 @@ const String loginBtn =  "Connectez-vous";
 const String registerStr =  "Vous n'avez pas de compte?";
 const String registerBtn =  "Inscrivez vous";
 //adresse ip
-const String ip="192.168.137.81:8000";
+const String ip="word-detectiveapp.0xzales.com";

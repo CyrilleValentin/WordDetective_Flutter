@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:word_detective/pages/choix.dart';
 import 'package:word_detective/routes/route.dart';
 import 'package:word_detective/services/preferences.dart';
+import 'package:word_detective/services/requete.dart';
 import 'authentification/register.dart';
 
 import 'package:onboarding/onboarding.dart';
@@ -19,11 +20,20 @@ final pref=Preferences.pref;
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:pref.getLogin!?DifficultySelectionScreen():const Accueil(),
+      home:_buildHomeWidget()
     );
   }
 }
- 
+ Widget _buildHomeWidget() {
+  if (pref.getLogin == true) {
+    return DifficultySelectionScreen(); // L'utilisateur est connecté, affichez la page de sélection de la difficulté
+  } 
+  if (pref.getLogout == false) {
+    return const Accueil(); // L'utilisateur n'est pas connecté, affichez la page d'accueil
+  }
+  // Si ni connecté ni déconnecté, vous pouvez renvoyer un widget par défaut, par exemple Accueil
+  return const Accueil();
+}
 
 class Accueil extends StatefulWidget {
   const Accueil({Key? key}) : super(key: key);

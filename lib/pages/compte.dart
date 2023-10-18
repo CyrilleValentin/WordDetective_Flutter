@@ -52,7 +52,8 @@ class _CompteState extends State<Compte> {
         actions: [
           IconButton(
             onPressed: () async {
-                if (await apiLogout(pref.getToken!)){
+                if ( await apiLogout(pref.getToken!)){
+                  pref.logout();
                 CustomToast.show(context, "Déconnexion Réussie");
                  navigator(context, const LoginScreen());
                 }else{

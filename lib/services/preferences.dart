@@ -24,8 +24,15 @@ class Preferences{
 
    Future<void>login ()async{
     await instance.setBool("login", true);
-  }
+  } 
   bool ? get getLogin{
+    return instance.getBool("login")??false;
+  }
+
+  Future<void>logout ()async{
+    await instance.setBool("login", false);
+  } 
+  bool ? get getLogout{
     return instance.getBool("login")??false;
   }
 

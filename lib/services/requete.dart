@@ -55,6 +55,9 @@ Future<bool> apiLogout(String token) async {
       'Authorization': 'Bearer $token',
     },
   );
+  print(token);
+  print(response.body);
+  
   if (response.statusCode == 200) {
     return true;
   } else {
