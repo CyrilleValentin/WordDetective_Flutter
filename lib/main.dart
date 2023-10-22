@@ -26,6 +26,7 @@ final pref=Preferences.pref;
 }
  Widget _buildHomeWidget() {
   if (pref.getLogin == true) {
+
     return DifficultySelectionScreen(); // L'utilisateur est connecté, affichez la page de sélection de la difficulté
   } 
   if (pref.getLogout == false) {

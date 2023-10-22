@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:vibration/vibration.dart';
 import 'package:word_detective/pages/choix.dart';
 import 'package:word_detective/pages/constants/strings.dart';
 import 'package:word_detective/services/preferences.dart';
+import 'package:word_detective/services/requete.dart';
 
 
 
@@ -185,6 +187,10 @@ class _FirstScreenState extends State<FirstScreen> {
         newWord();
         startTimer();
       });
+      if (pref.getScore!<score){
+        pref.score(score);
+        apiUpdateScore(pref.getToken!, pref.getScore!);
+      }
       if (compteur >= 3) {
         setState(() {
           score += 3;
@@ -193,6 +199,7 @@ class _FirstScreenState extends State<FirstScreen> {
       CustomToast.show(context, goodGuess);
     } else {
       timer?.cancel();
+       Vibration.vibrate(duration: 500,amplitude: 100);
       if (lives > 1) {
         setState(() {
           compteur = 0;

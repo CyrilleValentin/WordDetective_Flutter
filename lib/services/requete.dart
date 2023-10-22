@@ -90,3 +90,29 @@ Future<bool> apiProfile(String token) async {
   }
 }
 
+  Future<bool> apiUpdateScore(String token, int score) async {
+  try {
+    final response = await http.post(
+      Uri.parse('http://$ip/api/auth/update-score'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+       body: {
+        "score": score.toString(),
+       }
+    );
+    if (response.statusCode == 200) {
+      //final userProfile = json.decode(response.body)['data'];
+      
+      print('Modification effectuée');
+      return true; // Succès, retourne true
+    } else {
+      return false; // Échec, retourne false
+    }
+  } catch (e) {
+    // ignore: avoid_print
+    print('Une erreur s\'est produite : $e');
+    return false; // En cas d'erreur, retourne false
+  }
+}
+

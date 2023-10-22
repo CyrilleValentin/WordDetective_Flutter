@@ -42,6 +42,7 @@ dependencies:
   firebase_auth: ^4.10.1
   http: ^1.1.0
   iconsax: ^0.0.8
+  vibration: ^1.8.3
 
 dev_dependencies:
   flutter_test:
