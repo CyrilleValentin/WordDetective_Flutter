@@ -15,52 +15,51 @@ class Compte extends StatefulWidget {
 
 class _CompteState extends State<Compte> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
- String? userEmail = pref.getEmail; 
-  String? userName = pref.getName; 
-  int? userScore = pref.getScore; 
-   @override
+  String? userEmail = pref.getEmail;
+  String? userName = pref.getName;
+  int? userScore = pref.getScore;
+  @override
   void initState() {
     super.initState();
     _fetchUserProfile();
   }
 
   void _fetchUserProfile() async {
-   try {
-    final token = pref.getToken; 
+    try {
+      final token = pref.getToken;
 
-    if (token != null) {
-      final success = await apiProfile(token);
+      if (token != null) {
+        final success = await apiProfile(token);
 
-      if (success) {
-        print('Profil récupéré avec succès');
+        if (success) {
+          print('Profil récupéré avec succès');
+        } else {
+          print('Échec de la récupération du profil');
+        }
       } else {
-        print('Échec de la récupération du profil');
+        print('Token introuvable, veuillez vous connecter');
       }
-    } else {
-      print('Token introuvable, veuillez vous connecter');
+    } catch (e) {
+      print('Une erreur s\'est produite : $e');
     }
-  } catch (e) {
-    print('Une erreur s\'est produite : $e');
   }
-  } 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFF264653),
         title: const Text('Profile'),
         actions: [
           IconButton(
             onPressed: () async {
-                if ( await apiLogout(pref.getToken!)){
-                  pref.logout();
+              if (await apiLogout(pref.getToken!)) {
+                pref.logout();
                 CustomToast.show(context, "Déconnexion Réussie");
-                 navigator(context, const LoginScreen());
-                }else{
+                navigator(context, const LoginScreen());
+              } else {
                 CustomToast.show(context, "Echec de Déconnexion ");
-               
-                }
-              
+              }
             },
             icon: Image.asset(
               "images/logout.png",
@@ -147,7 +146,6 @@ class _CompteState extends State<Compte> {
               labelText: 'Score',
               border: OutlineInputBorder(),
             ),
-            
           ),
           const SizedBox(height: 24),
           ElevatedButton(

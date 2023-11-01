@@ -4,7 +4,7 @@ import 'package:word_detective/pages/constants/strings.dart';
 import 'package:word_detective/services/preferences.dart';
 
 final pref = Preferences.pref;
-
+List<dynamic> users = [];
 Future<String> apiRegister(
     String name, String email, String password, String confpassword) async {
   final response =
@@ -114,5 +114,19 @@ Future<bool> apiProfile(String token) async {
     print('Une erreur s\'est produite : $e');
     return false; // En cas d'erreur, retourne false
   }
+  
 }
+Future<List<dynamic>> fetchClassementData() async {
+  final response = await http.get(Uri.parse('http://$ip/api/auth/classement'));
+
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    final users = data['users'];
+    return users;
+  } else {
+    throw Exception('Échec de la requête de classement');
+  }
+}
+
+
 

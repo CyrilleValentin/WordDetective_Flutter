@@ -1,15 +1,23 @@
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:word_detective/navigation/bottomNavigation.dart';
 import 'package:word_detective/routes/route.dart';
 import 'package:word_detective/services/preferences.dart';
-enum DifficultyLevel{
+
+enum DifficultyLevel {
   // ignore: constant_identifier_names
-  Facile,Normal,Difficile
+  Facile,
+  Normal,
+  Difficile
 }
 
 class DifficultySelectionScreen extends StatefulWidget {
+  const DifficultySelectionScreen({super.key});
+
   @override
-  _DifficultySelectionScreenState createState() => _DifficultySelectionScreenState();
+  _DifficultySelectionScreenState createState() =>
+      _DifficultySelectionScreenState();
 }
 
 class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
@@ -18,7 +26,10 @@ class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sélection de la difficulté')),
+      appBar: AppBar(
+        title: const Text('Sélection de la difficulté'),
+        backgroundColor: const Color(0xFF264653),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -47,9 +58,8 @@ class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
               },
             ),
             ElevatedButton(
-              onPressed: ()async {
-                await
-                Preferences.pref.niveau(selectedLevel.name);
+              onPressed: () async {
+                await Preferences.pref.niveau(selectedLevel.name);
                 Navigator.pop(context, selectedLevel);
                 navigator(context, const BottomNavBar());
               },
