@@ -31,7 +31,7 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final pref=Preferences.pref;
+  final pref = Preferences.pref;
   String _email = '';
   String _name = '';
   String _password = '';
@@ -45,35 +45,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          height: double.infinity,
-          color: Colors.white,
-          child: Center(
-            child: SizedBox(
-              width: 350,
-              height: 450,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Container(
+            height: double.infinity,
+            color: Colors.white,
+            child: Center(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Text(
-                      "Inscription",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 50,
-                      ),
-                    ),
-                    Card(
-                      elevation: 5,
-                      // color: const Color(0xFFD46F4D),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: buildForm(),
-                      ),
-                    ),
-                  ],
-                ),
+                child: buildForm(),
               ),
             ),
           ),
@@ -85,19 +64,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget buildForm() {
     return Form(
       key: _formKey,
-      child:  Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.only(
-                bottom: 20), // Ajuste l'espace autour du logo
+            margin: const EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5), // Couleur de l'ombre
-                  spreadRadius: 5, // Rayon de dispersion
-                  blurRadius: 7, // Flou
-                  offset: const Offset(0, 3), // Décalage de l'ombre
+                  color: Colors.grey.withOpacity(0.5), 
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
@@ -106,27 +84,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
           // Logo
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           // Texte
           const Text(
-            motLogin,
+            motRegister,
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
           const Text(
-            motLogin2,
+            motRegister2,
             style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 20),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white, 
-              borderRadius: BorderRadius.circular(30), 
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5), 
-                  spreadRadius: 2, 
-                  blurRadius: 7, 
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 7,
                   offset: const Offset(0, 3),
                 ),
               ],
@@ -143,15 +121,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
               validator: (value) {
-              if (value == "") {
-                return nameHint;
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _name = value!;
-            },
-          ),
+                if (value == "") {
+                  return nameHint;
+                }
+                return null;
+              },
+              onSaved: (value) {
+                _name = value!;
+              },
+            ),
           ),
           const SizedBox(height: 20),
           // Input pour l'email
@@ -263,26 +241,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
               obscureText: true,
-            validator: (value) {
-              if (value == "") {
-                return confpasswordHint;
-              }
-              if (!passwordRegex.hasMatch(value!)) {
-                return confVerifpasswordHint;
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _confpassword = value!;
-            },
+              validator: (value) {
+                if (value == "") {
+                  return confpasswordHint;
+                }
+                if (!passwordRegex.hasMatch(value!)) {
+                  return confVerifpasswordHint;
+                }
+                return null;
+              },
+              onSaved: (value) {
+                _confpassword = value!;
+              },
             ),
           ),
 
-          const SizedBox(height: 40),
+          const SizedBox(height: 25),
           // Bouton de connexion
           ElevatedButton(
             // ignore: sort_child_properties_last
-            child: const  Text("S'inscrire"),
+            child: const Text("S'inscrire"),
             onPressed: () {
               _submitForm();
             },
@@ -293,17 +271,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
           ),
-      
-      const SizedBox(height: 20),
+
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(loginStr,
+              const Text(
+                loginStr,
                 style: TextStyle(fontSize: 12),
               ),
               GestureDetector(
                 onTap: () {
-                  navigator(context,  const LoginScreen());
+                  navigator(context, const LoginScreen());
                 },
                 child: const Text(
                   loginBtn,
@@ -333,6 +312,4 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       }
     }
   }
- 
-
 }

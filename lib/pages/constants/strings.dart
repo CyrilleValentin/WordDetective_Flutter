@@ -12,6 +12,8 @@ const String loginBtn =  "Connectez-vous";
 const String registerStr =  "Vous n'avez pas de compte?";
 const String registerBtn =  "Inscrivez vous";
 const String motLogin =  "Content de te revoir!";
+const String motRegister =  "Bienvenue!";
+const String motRegister2 =  "Inscris toi!";
 const String motLogin2 =  "Connecte toi à ton compte!";
 //adresse ip
 const String ip="word-detectiveapp.0xzales.com";
