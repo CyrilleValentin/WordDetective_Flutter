@@ -35,45 +35,24 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password = '';
   TextEditingController email = TextEditingController(text: "");
   TextEditingController password = TextEditingController(text: "");
-final pref=Preferences.pref;
+  final pref = Preferences.pref;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          height: double.infinity,
-          color: Colors.white,
-          child: Center(
-            child: SizedBox(
-              width: 350,
-              height: 450,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Container(
+            height: double.infinity,
+            color: Colors.white,
+            child: Center(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Text(
-                      "Connexion",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 50,
-                      ),
-                    ),
-                    Card(
-                      elevation: 5,
-                      color: const Color(0xFFD46F4D),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: buildForm(),
-                      ),
-                    ),
-                  ],
+                child: buildForm(),
                 ),
               ),
             ),
-          ),
         ),
-      ),
+        ),
     );
   }
 
@@ -81,62 +60,136 @@ final pref=Preferences.pref;
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          TextFormField(
-            controller: email,
-            decoration: const InputDecoration(
-              filled: true,
-              fillColor: Color(0xFFFFBF66),
-              contentPadding: EdgeInsets.symmetric(horizontal: 20),
-              labelText: "Email de l'utilisateur",
-              border: OutlineInputBorder(),
+          Container(
+            margin: const EdgeInsets.only(
+                bottom: 20), // Ajuste l'espace autour du logo
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5), // Couleur de l'ombre
+                  spreadRadius: 5, // Rayon de dispersion
+                  blurRadius: 7, // Flou
+                  offset: const Offset(0, 3), // Décalage de l'ombre
+                ),
+              ],
             ),
-            keyboardType: TextInputType.emailAddress,
-            validator: (value) {
-              if (value == "") {
-                return emailHint;
-              }
-              if (!emailRegex.hasMatch(value!)) {
-                return emailVerifHint;
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _email = value!;
-            },
+            child: Image.asset(logo, width: 100, height: 100),
           ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: password,
-            keyboardType: TextInputType.visiblePassword,
-            decoration: const InputDecoration(
-              filled: true,
-              fillColor: Color(0xFFFFBF66),
-              contentPadding: EdgeInsets.symmetric(horizontal: 20),
-              labelText: 'Mot de passe',
-              border: OutlineInputBorder(),
+
+          // Logo
+
+          const SizedBox(height: 20),
+          // Texte
+          const Text(
+            motLogin,
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            motLogin2,
+            style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
+          ),
+          const SizedBox(height: 40),
+          // Input pour l'email
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white, // Couleur de fond du conteneur
+              borderRadius: BorderRadius.circular(30), // Bord arrondi
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5), // Couleur de l'ombre
+                  spreadRadius: 2, // Rayon de dispersion
+                  blurRadius: 7, // Flou
+                  offset: const Offset(0, 3), // Décalage de l'ombre
+                ),
+              ],
             ),
-            obscureText: true,
-            validator: (value) {
-              if (value == "") {
-                return passwordHint;
-              }
-              if (!passwordRegex.hasMatch(value!)) {
-                return password8CaractHint;
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _password = value!;
-            },
+            child: TextFormField(
+              controller: email,
+              decoration: InputDecoration(
+                labelText: "Email de l'utilisateur",
+                prefixIcon: const Icon(Icons.email),
+                border: OutlineInputBorder(
+                  // Bordure de l'Input
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value == "") {
+                  return emailHint;
+                }
+                if (!emailRegex.hasMatch(value!)) {
+                  return emailVerifHint;
+                }
+                return null;
+              },
+              onSaved: (value) {
+                _email = value!;
+              },
+            ),
           ),
-          const SizedBox(height: 24),
+
+          const SizedBox(height: 20),
+          // Input pour le mot de passe
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white, // Couleur de fond du conteneur
+              borderRadius: BorderRadius.circular(30), // Bord arrondi
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5), // Couleur de l'ombre
+                  spreadRadius: 2, // Rayon de dispersion
+                  blurRadius: 7, // Flou
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: TextFormField(
+              controller: password,
+              keyboardType: TextInputType.visiblePassword,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.password),
+                labelText: 'Mot de passe',
+                border: OutlineInputBorder(
+                  // Bordure de l'Input
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              obscureText: true,
+              validator: (value) {
+                if (value == "") {
+                  return passwordHint;
+                }
+                if (!passwordRegex.hasMatch(value!)) {
+                  return password8CaractHint;
+                }
+                return null;
+              },
+              onSaved: (value) {
+                _password = value!;
+              },
+            ),
+          ),
+
+          const SizedBox(height: 40),
+          // Bouton de connexion
           ElevatedButton(
+            // ignore: sort_child_properties_last
+            child: const Text('Se connecter'),
             onPressed: () {
               _submitForm();
             },
-            child: const Text("Se connecter"),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           Row(
@@ -177,5 +230,4 @@ final pref=Preferences.pref;
       }
     }
   }
- 
 }
